@@ -11,6 +11,13 @@ M.ui = {
 	-- 	Comment = { italic = true },
 	-- 	["@comment"] = { italic = true },
 	-- },
+  -- lazyload it when there are 1+ buffers
+  tabufline = {
+    enabled = true,
+    lazyload = true,
+    order = { "treeOffset", "buffers", "tabs", "btns" },
+    modules = nil,
+  },
 }
 
 return M
