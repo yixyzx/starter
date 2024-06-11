@@ -59,4 +59,9 @@ map("n", "<leader>p", function ()
     print("Copied: " .. path)
   end
 end, { desc = "copy the the current file path to system register '+'" })
+-- https://vi.stackexchange.com/questions/2129/fastest-way-to-switch-to-a-buffer-in-vim
+-- Method #1: The :b command can also take a substring of the name of the file of the buffer which you want to travel to
+-- ":b a" = ":b bar"
+-- Method #2:
+map("n", "<leader>b", ":ls<CR>:b<Space>", { desc = " list the available buffers and prepare :b" })
 -- Yix add end

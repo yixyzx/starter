@@ -22,4 +22,5 @@
   - require("nvim-treesitter.configs").setup({ textobject={...} }) do not pollute NvChad's inbuilt 'nvim-treesitter' config!!!
 
 # Use tabs when working on different projects. Like one tab for server codes and one tab for client codes.
-1. ':tabnew'->':tabcd' => number will show up on the right-top corner. => switch with ':tabnext' and ':tabprev'
+1. ':tabnew'->':tcd' => number will show up on the right-top corner. => switch with ':tabnext' and ':tabprev'
+# Use Ctrl-^ to instantly jump between the current buffer and the last accessed one.
