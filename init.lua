@@ -32,6 +32,10 @@ dofile(vim.g.base46_cache .. "defaults")
 dofile(vim.g.base46_cache .. "statusline")
 
 require "nvchad.autocmds"
+-- YiX add start
+require "function_yix"
+-- YiX add end
+
 
 vim.schedule(function()
   require "mappings"
