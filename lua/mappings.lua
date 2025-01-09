@@ -38,7 +38,7 @@ map("n", "<leader>q", ":e ~/buffer.md<cr>", { desc = "Scribble to quickly open a
 map("n", "<leader>l", ":.put=strftime('%h %d, %G')<cr>", { desc = "Insert the current date and time" })
 -- MUST type 'dtx' or 'dty' Quickly in insert mode, otherwise just input a string 'dtx'.
 -- May 21, 2024
-map("i", "dtx", "<C-r>=strftime('%h %d, %G')<cr>", { desc = "Insert the current date and time" })
+map("i", "dtx", "<C-r>=strftime('%a, %h %d, %G')<cr>", { desc = "Insert the current date and time" })
 -- Tue 21 May 2024 02:08:07 PM CST
 map("i", "dty", "<C-r>=strftime('%c')<cr>", { desc = "Insert the current date and time" })
 
@@ -53,7 +53,8 @@ map("i", "dty", "<C-r>=strftime('%c')<cr>", { desc = "Insert the current date an
 -- Directory name only: %:p:h
 -- 'https://github.com/tnakaz/path-to-clipboard.nvim/blob/main/lua/path-to-clipboard/init.lua'
 map("n", "<leader>p", function ()
-  local path = vim.fn.expand("%:p")
+  -- local path = vim.fn.expand("%:p")
+  local path = vim.fn.expand("%")
   if path ~= "" then
     vim.fn.setreg('+', path)
     print("Copied: " .. path)
@@ -64,4 +65,14 @@ end, { desc = "copy the the current file path to system register '+'" })
 -- ":b a" = ":b bar"
 -- Method #2:
 map("n", "<leader>b", ":ls<CR>:b<Space>", { desc = " list the available buffers and prepare :b" })
--- Yix add end
+-- tags/ctags
+-- 使用Ctrl + ]查找某个标签时，第一次列出了所有匹配项,选择一个后，
+-- 但在第二次查找时却直接跳转到之前选择过的项而不是列出所有的匹配项，
+-- 或者使用Ctrl + ]查找标签时总是直接跳转到第一个匹配的标签，
+-- 但这可能并不是你想要的，这时候使用:ts命令就可以列出所有匹配项供自己选择，
+-- 或者在配置文件中添加如下配置：map <c-]> g<c-]>。
+map("n", "<c-]>", "g<c-]>" )
+
+-- "aerial": A code outline window for skimming and quick navigation
+-- map("n", "<leader>a", "<cmd>AerialToggle!<CR>", { buffer = bufnr })
+map("n", "<leader>a", "<cmd>AerialToggle!<CR>")

@@ -20,7 +20,9 @@ for _, lsp in ipairs(servers) do
 end
 
 -- typescript
-lspconfig.tsserver.setup {
+-- tsserver is deprecated, use ts_ls instead. Feature will be removed in lspconfig 0.2.1
+-- lspconfig.tsserver.setup {
+lspconfig.ts_ls.setup {
   on_attach = on_attach,
   on_init = on_init,
   capabilities = capabilities,

@@ -1,3 +1,7 @@
+-- YiX: MUST NOT, CAN NOT add 'require "other_plugins"' here.
+-- if 'require "other_plugins"' and 'unpack(other_plugins)', error: other_plugins is nil(null)
+-- 'https://lazy.folke.io/usage/structuring'
+-- Any lua file in ~/.config/nvim/lua/plugins/*.lua will be automatically merged in the main plugin spec.
 return {
   {
     "stevearc/conform.nvim",
