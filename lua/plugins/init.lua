@@ -2,6 +2,7 @@
 -- if 'require "other_plugins"' and 'unpack(other_plugins)', error: other_plugins is nil(null)
 -- 'https://lazy.folke.io/usage/structuring'
 -- Any lua file in ~/.config/nvim/lua/plugins/*.lua will be automatically merged in the main plugin spec.
+-- A plugin include multiple arguments which name 'Plugin Spec': 'https://lazy.folke.io/spec'
 return {
   {
     "stevearc/conform.nvim",

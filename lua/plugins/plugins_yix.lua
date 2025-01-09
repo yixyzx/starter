@@ -1,4 +1,5 @@
 -- require("notify")("YiX plugins")
+-- A plugin include multiple arguments which name 'Plugin Spec': 'https://lazy.folke.io/spec'
 local plugins = {
   {
     "rcarriga/nvim-notify",
@@ -27,7 +28,7 @@ local plugins = {
       "nvim-tree/nvim-web-devicons"
     },
     config = function()
-      -- find path in 'lua/configs/aerial.lua'
+      -- find config file in 'lua/configs/aerial.lua'
       require "configs.aerial"
     end,
   },
