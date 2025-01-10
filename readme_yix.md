@@ -46,6 +46,15 @@
   - require("nvim-treesitter.configs").setup({ textobject={...} }) do not pollute NvChad's inbuilt 'nvim-treesitter' config!!!
 4. use plugin "stevearc/aerial.nvim" for code outline instead of 'tagbar' or 'taglist' 
 
+## usage nvim-treesitter-and-textobjects 
+1. textobject includes function(m), function call(f), class(c), if condition(i), 
+    for loop(l), parameter(a), assingment(=).
+2. action includes select(v,V,c+v), swap(<leader>), move/jump([,])
+3. 'vam': select a function(NOT 'vaf'). 
+   '<leader>na': swap between this parameter and the next parameter.
+   ']m': jump to the next start of function.
+4. Reference to 'lua/configs/nvim-treesitter-and-textobjects.lua' for more key maps.
+
 # Use tabs when working on different projects. Like one tab for server codes and one tab for client codes.
 1. ':tabnew'->':tcd' => number will show up on the right-top corner. => switch with ':tabnext' and ':tabprev'
 # Use Ctrl-^ to instantly jump between the current buffer and the last accessed one.
