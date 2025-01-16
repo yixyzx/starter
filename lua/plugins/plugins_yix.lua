@@ -13,6 +13,15 @@ local plugins = {
     end,
   },
   {
+    "chrisgrieser/nvim-various-textobjs",
+    event = "VeryLazy",
+    opts = {
+      keymaps = {
+        useDefaults = true
+      }
+    },
+  },
+  {
     -- "aerial": A code outline window for skimming and quick navigation
     -- "aerial" replace for 'taglist' or 'tagbar'
     "stevearc/aerial.nvim",

@@ -76,3 +76,13 @@ map("n", "<c-]>", "g<c-]>" )
 -- "aerial": A code outline window for skimming and quick navigation
 -- map("n", "<leader>a", "<cmd>AerialToggle!<CR>", { buffer = bufnr })
 map("n", "<leader>a", "<cmd>AerialToggle!<CR>")
+
+-- call GoToNextIndent( , ) in lua/function_yix.lua
+-- n: 表示向下查找，m: 向上(p键被占用，改为m)
+-- =: 相同缩进, 1: 更长缩进 -1: 更短缩进
+vim.api.nvim_set_keymap('n', 'n=', ':lua GoToNextIndent(1, 0)<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'm=', ':lua GoToNextIndent(-1, 0)<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'n+', ':lua GoToNextIndent(1, 1)<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'm+', ':lua GoToNextIndent(-1, 1)<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'n-', ':lua GoToNextIndent(1, -1)<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'm-', ':lua GoToNextIndent(-1, -1)<CR>', { noremap = true, silent = true })
