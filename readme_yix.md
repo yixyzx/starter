@@ -35,6 +35,8 @@
 1. add my all plugins to lua/plugins/plugins_yix.lua in order to avoid pollution.
 2. use plugin "rcarriga/nvim-notify" to add messages
   - 'require("notify")("My super important message")'
+  - require("notify")(valid_search_dirs) // valid_search_dirs is variable name .
+  - ":Telescope notify": show all messages in Telescope.
   - ":Notifications": show all messages.
   - 'echo()/vim.api.nvim_echo()/print()' -> ':messages': DO NOT work!
 3. use "nvim-treesitter/nvim-treesitter-textobjects" to add textobject.
@@ -45,6 +47,12 @@
   - "nvim-treesitter"
   - require("nvim-treesitter.configs").setup({ textobject={...} }) do not pollute NvChad's inbuilt 'nvim-treesitter' config!!!
 4. use plugin "stevearc/aerial.nvim" for code outline instead of 'tagbar' or 'taglist' 
+5. ":messages" display all errors.
+
+## add new plugin
+1. In "lua/plugins/plugins_yix.lua", add new plugin which's either lua plugin or vimscript plugin, 
+for example: "https://github.com/ap/vim-buftabline"
+2. config plugin either in when adding plugin, or a new file in "lua/configs/aerial.lua"
 
 ## usage nvim-treesitter-and-textobjects 
 1. textobject includes function(m), function call(f), class(c), if condition(i), 

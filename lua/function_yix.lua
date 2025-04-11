@@ -86,3 +86,124 @@ function GoToNextIndent(inc, indent_change)
     -- print("No matching line found.")
   end
 end
+
+-- 加载 telescope.nvim
+local builtin = require('telescope.builtin')
+-- 定义兼容的 unpack 函数
+local unpack = unpack or table.unpack
+
+-- 从 .h 文件跳转到 .c 文件
+-- function Jump_from_h_to_c()
+--     local current_file = vim.api.nvim_buf_get_name(0)
+--     if vim.endswith(current_file, '.h') then
+--         local base_name = vim.fn.fnamemodify(current_file, ":t:r")
+--         local dir = vim.fn.fnamemodify(current_file, ":h")
+--         builtin.find_files({
+--             search_dirs = { dir },
+--             prompt_title = "查找对应的 .c 文件",
+--             search = base_name .. '.c'
+--         })
+--     else
+--         print("当前文件不是 .h 文件")
+--     end
+-- end
+
+-- .c <-> .h
+-- 可能会出现的2个重复文件，它们是同一个目录下的同一个.h文件：原因是Neovim 或 telescope 内部可能存在缓存机制
+-- 可用清除缓存机制的方法，但是会降低搜索速度，所以不修正 (->Close)
+-- 从 .h 文件跳转到 .c 文件
+function Jump_from_h_to_c()
+    local current_file = vim.api.nvim_buf_get_name(0)
+    if vim.endswith(current_file, '.h') then
+        local base_name = vim.fn.fnamemodify(current_file, ":t:r")
+        local current_dir = vim.fn.fnamemodify(current_file, ":h")
+        local parent_dir = vim.fn.fnamemodify(current_dir, ":h")
+
+        -- 定义可能包含源文件的目录
+        local search_dirs = {
+            current_dir,
+            parent_dir .. '/src',
+            parent_dir .. '/source'
+        }
+
+        -- 过滤掉不存在的目录
+        local valid_search_dirs = {}
+        for _, dir in ipairs(search_dirs) do
+            if vim.fn.isdirectory(dir) == 1 then
+                table.insert(valid_search_dirs, dir)
+            end
+        end
+
+        if #valid_search_dirs > 0 then
+            -- 构建查找命令，使用 find 命令进行精确查找
+            local find_command = {
+                'find',
+                unpack(valid_search_dirs),
+                '-name', base_name .. '.c'
+            }
+
+            builtin.find_files({
+                search_dirs = valid_search_dirs,
+                prompt_title = "查找对应的 .c 文件",
+                hidden = false, -- 不查找隐藏文件
+                -- no_ignore = false, -- 遵循 .gitignore 等忽略规则
+                follow = true, -- 跟随符号链接
+                find_command = find_command
+            })
+        else
+            print("未找到有效的搜索目录")
+        end
+    else
+        print("当前文件不是 .h 文件")
+    end
+end
+
+
+-- 从 .c 文件跳转到 .h 文件
+function Jump_from_c_to_h()
+    local current_file = vim.api.nvim_buf_get_name(0)
+    if vim.endswith(current_file, '.c') then
+        local base_name = vim.fn.fnamemodify(current_file, ":t:r")
+        local current_dir = vim.fn.fnamemodify(current_file, ":h")
+        local parent_dir = vim.fn.fnamemodify(current_dir, ":h")
+
+        -- 定义可能包含头文件的目录
+        local search_dirs = {
+            current_dir,
+            parent_dir .. '/inc',
+            parent_dir .. '/include'
+        }
+
+        -- require("notify")(search_dirs)
+        -- 过滤掉不存在的目录
+        local valid_search_dirs = {}
+        for _, dir in ipairs(search_dirs) do
+            if vim.fn.isdirectory(dir) == 1 then
+                table.insert(valid_search_dirs, dir)
+            end
+        end
+        -- require("notify")(valid_search_dirs)
+
+        if #valid_search_dirs > 0 then
+            -- 构建查找命令，使用 find 命令进行精确查找
+            local find_command = {
+                'find',
+                unpack(valid_search_dirs),
+                '-name', base_name .. '.h'
+            }
+
+            builtin.find_files({
+                search_dirs = valid_search_dirs,
+                prompt_title = "查找对应的 .h 文件",
+                hidden = false, -- 不查找隐藏文件
+                -- no_ignore = false, -- 遵循 .gitignore 等忽略规则
+                follow = true, -- 跟随符号链接
+                find_command = find_command
+            })
+        else
+            print("未找到有效的搜索目录")
+        end
+    else
+        print("当前文件不是 .c 文件")
+    end
+end

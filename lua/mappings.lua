@@ -9,13 +9,14 @@ map("i", "jk", "<ESC>")
 
 -- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
 -- YiX add start
--- 'Alt+n' switch n tab: 'https://nvchad.com/docs/api'
+-- 'Alt+n'切换buffer的方法不再是使用，改用'leader+n'，它使用插件'https://github.com/ap/vim-buftabline'
+-- 'Alt+n' switch to n tab: 'https://nvchad.com/docs/api'
 -- todo: buffer上显示'数字'，这样更方便看清楚哪个buffer对应哪个数字，使用'Alt+n'切换更方便.
-for i = 1, 9, 1 do
-  vim.keymap.set("n", string.format("<A-%s>", i), function()
-    vim.api.nvim_set_current_buf(vim.t.bufs[i])
-  end)
-end
+-- for i = 1, 9, 1 do
+--   vim.keymap.set("n", string.format("<A-%s>", i), function()
+--     vim.api.nvim_set_current_buf(vim.t.bufs[i])
+--   end)
+-- end
 
 -- Quickly open a markdown buffer for scribble
 -- come from 'https://github.com/amix/vimrc'
@@ -86,3 +87,9 @@ vim.api.nvim_set_keymap('n', 'n+', ':lua GoToNextIndent(1, 1)<CR>', { noremap = 
 vim.api.nvim_set_keymap('n', 'm+', ':lua GoToNextIndent(-1, 1)<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'n-', ':lua GoToNextIndent(1, -1)<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'm-', ':lua GoToNextIndent(-1, -1)<CR>', { noremap = true, silent = true })
+
+-- .c <-> .h
+-- 可能会出现的2个重复文件，它们是同一个目录下的同一个.h文件：原因是Neovim 或 telescope 内部可能存在缓存机制
+-- 可用清除缓存机制的方法，但是会降低搜索速度，所以不修正 (->Close)
+vim.api.nvim_set_keymap('n', '<leader>hc', '<cmd>lua Jump_from_h_to_c()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>ch', '<cmd>lua Jump_from_c_to_h()<CR>', { noremap = true, silent = true })
